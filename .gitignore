@@ -1,0 +1,20 @@
+.DS_Store
+
+# Personal voice recordings and test audio: never commit
+*.wav
+*.m4a
+*.mp3
+*.aac
+*.caf
+*.aiff
+
+# Build output and generated files (build_app.sh recreates them)
+BardiSpeak/build/
+BardiSpeak/Generated/
+BardiSpeak/*.xcodeproj/
+xcuserdata/
+DerivedData/
+
+# Python
+__pycache__/
+.venv/

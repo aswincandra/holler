@@ -1,0 +1,89 @@
+# XcodeGen spec. build_app.sh runs `xcodegen generate` to make BardiSpeak.xcodeproj,
+# so edit this file, not the .xcodeproj. DEVELOPMENT_TEAM comes from the environment.
+name: BardiSpeak
+options:
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    DEVELOPMENT_TEAM: ${DEVELOPMENT_TEAM}
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: Apple Development
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.3"
+    CURRENT_PROJECT_VERSION: "3"
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    DEAD_CODE_STRIPPING: YES
+
+targets:
+  BardiSpeak:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+      - Shared
+      - path: Generated/BridgeJS.swift
+        optional: true
+    preBuildScripts:
+      - name: Embed bridge.js
+        script: '"$SRCROOT/scripts/gen_bridge.sh"'
+        inputFiles: [$(SRCROOT)/Resources/bridge.js]
+        outputFiles: [$(SRCROOT)/Generated/BridgeJS.swift]
+        basedOnDependencyAnalysis: true
+    dependencies:
+      - target: BardiSpeakWidget
+        embed: true
+    info:
+      path: Generated/App-Info.plist
+      properties:
+        CFBundleDisplayName: Bardi Speak
+        CFBundleName: Bardi Speak
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSUIElement: true
+        NSHighResolutionCapable: true
+        NSMicrophoneUsageDescription: Bardi Speak records new presets from your microphone.
+        AppGroupID: $(TeamIdentifierPrefix)id.aswin.bardispeak
+        CFBundleURLTypes:
+          - CFBundleURLName: id.aswin.bardispeak
+            CFBundleURLSchemes: [bardispeak]
+    entitlements:
+      path: Generated/App.entitlements
+      properties:
+        com.apple.security.application-groups: [$(TeamIdentifierPrefix)id.aswin.bardispeak]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: id.aswin.bardispeak
+        PRODUCT_NAME: Bardi Speak
+        PRODUCT_MODULE_NAME: BardiSpeak
+        EXECUTABLE_NAME: BardiSpeak
+        ENABLE_HARDENED_RUNTIME: NO
+
+  BardiSpeakWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - Widget
+      - Shared
+      - Sources/Theme.swift
+    info:
+      path: Generated/Widget-Info.plist
+      properties:
+        CFBundleDisplayName: Bardi Speak
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        AppGroupID: $(TeamIdentifierPrefix)id.aswin.bardispeak
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: Generated/Widget.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.application-groups: [$(TeamIdentifierPrefix)id.aswin.bardispeak]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: id.aswin.bardispeak.widget
+        PRODUCT_NAME: BardiSpeakWidget
+        ENABLE_HARDENED_RUNTIME: YES
+        SKIP_INSTALL: YES
