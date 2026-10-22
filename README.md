@@ -94,8 +94,10 @@ It draws the real views with sample presets into `docs/images/`, offline.
 
 ## Known limits
 
-- The portal allows **one web login per account**. Logging in from Chrome or
-  another device signs the app out, and the app then asks you to scan the QR code again.
+- The Bardi **web portal** seems to allow one active web session per account. When you
+  also log in to the web portal in a browser (seen with Chrome on the same Mac), the
+  app's session ends, and the app asks you to scan the QR code again. The Bardi phone
+  app uses its own login and keeps working.
 - If Bardi's servers are slow or down, the camera list can fail to load. The app
   reloads the portal up to 2 times.
 
