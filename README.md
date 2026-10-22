@@ -1,7 +1,8 @@
-# Bardi Speak
+# holler
 
-A macOS menu-bar app and desktop widget that plays saved audio clips ("presets")
-through the speaker of a home security camera, with one click.
+Holler at home from your Mac. **Bardi Speak** is a macOS menu-bar app and desktop
+widget that plays saved audio clips ("presets") through the speaker of a home
+security camera, with one click.
 
 > **Works only with Bardi cameras.** The app drives the official Bardi web portal
 > (`ipc.bardi.co.id`), so it has only been tested with a Bardi IDR-IPC-PTZ camera
