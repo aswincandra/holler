@@ -101,6 +101,14 @@ It draws the real views with sample presets into `docs/images/`, offline.
 - If Bardi's servers are slow or down, the camera list can fail to load. The app
   reloads the portal up to 2 times.
 
+## Roadmap
+
+- **iOS app** (planned): a standalone iPhone app with the same core features:
+  presets, Record Preset, Hold to Talk and camera choice. It will use the same
+  portal approach as the Mac app. The first version will have no widget and no
+  Live Activity. It will live in this repo, and the portal and preset code will be
+  shared between the two apps.
+
 ## Project layout
 
 ```
