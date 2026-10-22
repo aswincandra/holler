@@ -46,6 +46,13 @@ final class PresetStore: ObservableObject {
         }
     }
 
+    /// Sample presets in a temporary folder, for rendering README previews.
+    init(sample: [Preset]) {
+        folder = FileManager.default.temporaryDirectory.appendingPathComponent("BardiSpeakPreview", isDirectory: true)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        presets = sample
+    }
+
     func fileURL(_ p: Preset) -> URL { folder.appendingPathComponent(p.fileName) }
 
     func add(_ urls: [URL], source: String? = nil, name: String? = nil) {

@@ -60,6 +60,25 @@ targets:
         EXECUTABLE_NAME: BardiSpeak
         ENABLE_HARDENED_RUNTIME: NO
 
+  # Renders the real views with sample data into PNGs for the README (scripts/render_previews.sh).
+  BardiSpeakPreviews:
+    type: tool
+    platform: macOS
+    sources:
+      - path: Sources
+        excludes: [BardiSpeakApp.swift]
+      - Shared
+      - Widget
+      - Previews
+      - path: Generated/BridgeJS.swift
+        optional: true
+    settings:
+      base:
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: PREVIEWS
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: ""
+
   BardiSpeakWidget:
     type: app-extension
     platform: macOS

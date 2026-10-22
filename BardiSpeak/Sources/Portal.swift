@@ -76,7 +76,8 @@ final class Portal: NSObject, ObservableObject, WKScriptMessageHandler, WKNaviga
     private var captureWatch: [NSKeyValueObservation] = []
     private static let portalURL = URL(string: "https://ipc.bardi.co.id/playback")!
 
-    override init() {
+    /// `offline: true` never loads the portal or makes its window (used to render README previews).
+    init(offline: Bool = false) {
         let config = WKWebViewConfiguration()
         config.websiteDataStore = .default()  // keeps the QR login between launches
         config.mediaTypesRequiringUserActionForPlayback = []
@@ -104,6 +105,7 @@ final class Portal: NSObject, ObservableObject, WKScriptMessageHandler, WKNaviga
         webView.uiDelegate = self
         controller.add(self, name: "bardi")
         watchCapture()
+        guard !offline else { return }
         makeWindow()
         webView.load(URLRequest(url: Self.portalURL))
     }

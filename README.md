@@ -1,8 +1,22 @@
-# holler
+# 📣 holler 🏡📹
 
 Holler at home from your Mac. **Bardi Speak** is a macOS menu-bar app and desktop
 widget that plays saved audio clips ("presets") through the speaker of a home
-security camera, with one click.
+security camera, with one click. 🔊
+
+<p align="center">
+  <img src="docs/images/manager.png" width="820" alt="The Preset Audio Player window: a table of presets with play and delete buttons, a camera picker, Hold to Talk, and a drop zone for audio files">
+</p>
+<p align="center">
+  <img src="docs/images/menu.png" width="300" alt="The menu-bar dropdown: camera picker, Hold to Talk, the preset list with one preset playing, and Add Preset and Record Preset buttons">
+  &nbsp;&nbsp;
+  <img src="docs/images/widget-large.png" width="330" alt="The large desktop widget: six presets with play buttons, the first one playing with a progress bar">
+</p>
+<p align="center">
+  <img src="docs/images/widget-medium.png" width="364" alt="The medium desktop widget: four preset tiles on dark teal, the first one playing">
+</p>
+<p align="center"><sub>Sample presets. The images are rendered from the app's real SwiftUI views
+(<code>BardiSpeak/scripts/render_previews.sh</code>).</sub></p>
 
 > **Works only with Bardi cameras.** The app drives the official Bardi web portal
 > (`ipc.bardi.co.id`), so it has only been tested with a Bardi IDR-IPC-PTZ camera
@@ -75,6 +89,9 @@ It generates the Xcode project from `project.yml`, so edit that file, not the `.
 First run: click the menu-bar icon, choose **Show Camera Portal…**, and scan
 the QR code with the Bardi phone app.
 
+To update the preview images after a UI change, run `scripts/render_previews.sh`.
+It draws the real views with sample presets into `docs/images/`, offline.
+
 ## Known limits
 
 - The portal allows **one web login per account**. Logging in from Chrome or
@@ -86,11 +103,13 @@ the QR code with the Bardi phone app.
 
 ```
 BardiSpeak/
-  project.yml          XcodeGen spec (app + widget)
+  project.yml          XcodeGen spec (app + widget + preview renderer)
   build_app.sh         build and install
   Sources/             app (SwiftUI menu bar, wide window, portal, recorder)
   Shared/              code used by the app and the widget
   Widget/              WidgetKit desktop widget
+  Previews/            renders the README images
   Resources/bridge.js  script injected into the portal
-  scripts/             build helpers
+  scripts/             build and render helpers
+docs/images/           README preview images
 ```

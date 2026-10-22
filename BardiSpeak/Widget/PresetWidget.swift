@@ -8,10 +8,12 @@ import WidgetKit
 // sends a command to the running app. If the app isn't running, a press opens
 // it with a bardispeak://play link instead.
 
+#if !PREVIEWS  // the preview renderer has its own entry point
 @main
 struct BardiWidgets: WidgetBundle {
     var body: some Widget { PresetWidget() }
 }
+#endif
 
 struct PresetWidget: Widget {
     var body: some WidgetConfiguration {
