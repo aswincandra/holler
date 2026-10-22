@@ -264,6 +264,21 @@
     src.start();
     emit('playing', {id, duration: buf.duration});
     log('play', id, buf.duration.toFixed(1) + 's');
+    // Diagnostics: is audio really leaving on this connection? (direction, codec, packets sent)
+    setTimeout(async () => {
+      try {
+        const pc = connectedPC(name);
+        const t = pc && pc.getTransceivers().find(x => x.sender === sender);
+        const stats = await sender.getStats();
+        let out = null;
+        stats.forEach(r => { if (r.type === 'outbound-rtp') out = r; });
+        const codec = out && out.codecId ? stats.get(out.codecId) : null;
+        log('send check', name, '| direction:', t && t.currentDirection,
+            '| codec:', codec ? codec.mimeType + '/' + codec.clockRate : '?',
+            '| packets:', out ? out.packetsSent : 0, '| bytes:', out ? out.bytesSent : 0,
+            '| track:', sender.track ? sender.track.readyState : 'none');
+      } catch (e) { log('send check failed', e.message); }
+    }, 2000);
     return buf.duration;
   };
 
