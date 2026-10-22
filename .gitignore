@@ -18,3 +18,6 @@ DerivedData/
 # Python
 __pycache__/
 .venv/
+
+# Local feasibility notes (kept out of the repo)
+feasibility/

@@ -39,7 +39,9 @@ Bardi Speak loads it in a hidden `WKWebView` and injects a script (`bridge.js`):
 The portal window stays "on screen" but fully transparent. A hidden page
 throttles its timers, which made playback wait for minutes.
 
-See [`feasibility/FINDINGS.md`](feasibility/FINDINGS.md) for the protocol notes.
+The idea was tested in steps before the app was built: first by watching the portal's
+WebRTC calls in Chrome, then by swapping the talk track in Chrome, then inside a plain
+`WKWebView`, and only then in the full app.
 
 ## Privacy and security
 
@@ -91,5 +93,4 @@ BardiSpeak/
   Widget/              WidgetKit desktop widget
   Resources/bridge.js  script injected into the portal
   scripts/             build helpers
-feasibility/           protocol notes and the test-only preset server
 ```
